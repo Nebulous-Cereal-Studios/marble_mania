@@ -155,15 +155,15 @@ MonoBehaviour:
   run: 7.5
   slowdownSpeed: 2
   flashSpeed: 0.025
-  cutOffHeight: -10
-  winDistance: 5
   canMove: 0
+  canScoreGoal: 0
   isMoving: 0
   isCrouching: 0
   isRunning: 0
   mainCamera: {fileID: 0}
   normalMaterial: {fileID: 2100000, guid: e6b436b7032503242b038e1fdb158f4f, type: 2}
   flashingMaterial: {fileID: 2100000, guid: 1c6a07e4801e8ce41a872fc22b6200dd, type: 2}
+  speedcap: {x: 50, y: 50, z: 50}
 --- !u!54 &2374778268596744072
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -3113,6 +3113,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2374778269041259477}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &991214037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2374778268596744066, guid: 25f4f6e9c9751574987f2291b1b71ecc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2374778269041259477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &998418804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f5b25ebe09da1c4c87247c87783d0ab,
@@ -3767,6 +3773,62 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079066542}
   m_Mesh: {fileID: -3971920962147578484, guid: f836730bc38880d44858d3123e21d706, type: 3}
+--- !u!1 &1139704270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139704272}
+  - component: {fileID: 1139704271}
+  m_Layer: 0
+  m_Name: GameLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1139704271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139704270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466f678b525734f4592e6daa3b18e25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 991214037}
+  rb: {fileID: 0}
+  mainCamera: {fileID: 1980512588}
+  CNCamera: {fileID: 0}
+  cutOffHeight: -10
+  goalMaterial: {fileID: 2100000, guid: 3eb052157409fe94881676386bb1ffc8, type: 2}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
+  endColor: {r: 0, g: 0.20422697, b: 1, a: 0}
+  start: {fileID: 1779190972}
+  end: {fileID: 795434121}
+  slowSpeed: 5
+  levelInfoList: []
+--- !u!4 &1139704272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139704270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148334759
 GameObject:
   m_ObjectHideFlags: 0
@@ -9305,6 +9367,16 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1980512588}
+    - target: {fileID: 2374778268596744076, guid: 25f4f6e9c9751574987f2291b1b71ecc,
+        type: 3}
+      propertyPath: flashingMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c6a07e4801e8ce41a872fc22b6200dd, type: 2}
+    - target: {fileID: 2374778268596744078, guid: 25f4f6e9c9751574987f2291b1b71ecc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c196e04f42917347a727110d028705d, type: 2}
     - target: {fileID: 7788521175093968598, guid: 25f4f6e9c9751574987f2291b1b71ecc,
         type: 3}
       propertyPath: m_LocalPosition.x

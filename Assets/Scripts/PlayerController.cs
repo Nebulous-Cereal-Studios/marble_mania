@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,10 +21,8 @@ public class PlayerController : MonoBehaviour
     public float slowdownSpeed;
     public float flashSpeed;
 
-    public float cutOffHeight;
-    public float winDistance;
-
     public bool canMove = true;
+    public bool canScoreGoal = false;
 
     public bool isMoving;
     public bool isCrouching;
@@ -33,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public Material normalMaterial;
     public Material flashingMaterial;
+
+    public Vector3 speedcap;
 
     private float flashVal;
 
@@ -59,41 +60,20 @@ public class PlayerController : MonoBehaviour
             isRunning = true;
         }
 
+        //Digusting coded speedcap; I am not proud of this code
+        if (rb.velocity.x > speedcap.x) { Debug.Log("REACING X SPEEDCAP"); rb.velocity = new Vector3(speedcap.x, rb.velocity.y, rb.velocity.z); }
+        if (rb.velocity.y > speedcap.y) { Debug.Log("REACING Y SPEEDCAP"); rb.velocity = new Vector3(rb.velocity.x, speedcap.y, rb.velocity.z); }
+        if (rb.velocity.z > speedcap.z) { Debug.Log("REACING Z SPEEDCAP");  rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speedcap.z); }
+
         // Detects if the player is moving.
         // Useful if you want footstep sounds and or other features in your game.
-        
+
         //rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime / slowdownSpeed);
-
-        if (mainCamera.WorldToViewportPoint(player.transform.position).x > 0.75 || mainCamera.WorldToViewportPoint(player.transform.position).y > 0.75 || mainCamera.WorldToViewportPoint(player.transform.position).x > -0.75 || mainCamera.WorldToViewportPoint(player.transform.position).y > -0.75)
-        {
-            if(player.transform.position.y < cutOffHeight)
-            {
-
-                killPlayer();
-
-            }
-            
-        }
-        
-
-        if(Vector3.Distance(player.transform.position, end.position) <= winDistance)
-        {
-
-            Debug.Log("YOU WIN!!");
-
-            //rb.isKinematic = true;
-
-        }
 
         if (!canMove)
         {
             flashVal = Mathf.Lerp(flashVal, 25, Time.deltaTime * flashSpeed);
-
-            Debug.Log(flashVal + "wwww");
-
             flashingMaterial.SetFloat("_FlashSpeed", flashVal);
-
-            Debug.Log(flashingMaterial.GetFloat("_FlashSpeed") + "wdkwoaidkmowa");
         }
     }
 
