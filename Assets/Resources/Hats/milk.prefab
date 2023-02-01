@@ -98,6 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6ba7af721246e41a504026b7ddf5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  region_id: 
+  region_id: inside
   offset: {x: 0, y: 0, z: 0}
   rotate_offset: {x: 0, y: 0, z: 0}
