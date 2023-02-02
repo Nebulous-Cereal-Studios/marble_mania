@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraTarget : MonoBehaviour
 {
+    bool overrideFloor = true;
     [SerializeField] Transform player;
     float floor = 0f;
 
@@ -17,7 +18,9 @@ public class CameraTarget : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
         var pos = player.position;
 
-        pos.y = Mathf.Clamp(pos.y, floor, float.MaxValue);
+        if(!overrideFloor) {
+            pos.y = Mathf.Clamp(pos.y, floor, float.MaxValue);
+        }
 
         transform.position = pos;
     }
