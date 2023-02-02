@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour
 {
+    public static GameLogic Instance;
 
     public GameObject player;
     public Rigidbody rb;
@@ -33,6 +34,7 @@ public class GameLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
         rb = player.gameObject.GetComponent<Rigidbody>();
 
         goalMaterial.color = startColor;
