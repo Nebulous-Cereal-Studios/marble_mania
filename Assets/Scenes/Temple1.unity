@@ -10871,6 +10871,7 @@ MonoBehaviour:
   start: {fileID: 0}
   end: {fileID: 0}
   slowSpeed: 5
+  winDistance: 0
   levelInfoList: []
 --- !u!4 &1700720725
 Transform:

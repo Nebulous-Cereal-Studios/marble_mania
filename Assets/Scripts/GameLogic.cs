@@ -23,6 +23,8 @@ public class GameLogic : MonoBehaviour
     public Transform end;
     public int slowSpeed;
 
+    public int winDistance;
+
     public List<LevelInfo> levelInfoList;
 
     // Start is called before the first frame update
@@ -44,11 +46,16 @@ public class GameLogic : MonoBehaviour
             }
 
         }
+
+        if (Vector3.Distance(player.transform.position, end.position) <= winDistance)
+        {
+            winLevel();
+        }
     }
 
     public void KillPlayer()
     {
-        player.GetComponent<PlayerController>().killPlayer();
+        player.GetComponent<PlayerController>().killPlayer(start, end);
     }
 
     public void winLevel()

@@ -112,8 +112,11 @@ public class PlayerController : MonoBehaviour
         player.GetComponent<Renderer>().material = normalMaterial;
     }
 
-    public void killPlayer()
+    public void killPlayer(Transform newStart, Transform newEnd)
     {
+
+        start = newStart;
+        end = newEnd;
 
         Debug.Log("YOU DIED!!");
 
