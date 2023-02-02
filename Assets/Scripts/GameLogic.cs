@@ -26,6 +26,7 @@ public class GameLogic : MonoBehaviour
     public int winDistance;
 
     private bool ifWinning;
+    private bool won;
 
     public List<LevelInfo> levelInfoList;
 
@@ -40,6 +41,11 @@ public class GameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.R) && !won)
+        {
+            KillPlayer();
+        }
+
         if (mainCamera.WorldToViewportPoint(player.transform.position).x > 0.75 || mainCamera.WorldToViewportPoint(player.transform.position).y > 0.75 || mainCamera.WorldToViewportPoint(player.transform.position).x > -0.75 || mainCamera.WorldToViewportPoint(player.transform.position).y > -0.75)
         {
             if (player.transform.position.y < cutOffHeight)
@@ -94,7 +100,7 @@ public class GameLogic : MonoBehaviour
     public void startWinLevelDelay(float delay)
     {
         ifWinning = true;
-
+        won = true;
         Invoke("stopWinLevelDelay", delay);
     }
 
