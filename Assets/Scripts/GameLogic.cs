@@ -25,12 +25,16 @@ public class GameLogic : MonoBehaviour
 
     public int winDistance;
 
+    private bool ifWinning;
+
     public List<LevelInfo> levelInfoList;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = player.gameObject.GetComponent<Rigidbody>();
+
+        goalMaterial.color = startColor;
     }
 
     // Update is called once per frame
@@ -47,10 +51,25 @@ public class GameLogic : MonoBehaviour
 
         }
 
-        if (Vector3.Distance(player.transform.position, end.position) <= winDistance)
+        if (ifWinning)
         {
-            winLevel();
+
+            Vector3 newGoalPos = new Vector3(end.position.x, end.position.y + 1, end.position.z);
+
+            player.transform.position = Vector3.Lerp(player.transform.position, newGoalPos, Time.deltaTime * slowSpeed);
+            goalMaterial.color = Color.Lerp(goalMaterial.color, endColor, Time.deltaTime);
+
+            if (player.transform.position == end.position)
+            {
+
+                ifWinning = false;
+                rb.velocity = Vector3.zero;
+                rb.isKinematic = true;
+
+            }
+
         }
+
     }
 
     public void KillPlayer()
@@ -63,16 +82,25 @@ public class GameLogic : MonoBehaviour
 
         Debug.Log("YOU WIN!!");
 
-        goalMaterial.color = Color.Lerp(goalMaterial.color, endColor, Time.deltaTime);
+        
 
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime * slowSpeed);
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
 
-        if (rb.velocity.magnitude < new Vector3(0.1f, 0.15f, 0.1f).magnitude)
-        {
-            rb.velocity = Vector3.zero;
-            rb.isKinematic = true;
-        }
+        startWinLevelDelay(3f);
 
+    }
+
+    public void startWinLevelDelay(float delay)
+    {
+        ifWinning = true;
+
+        Invoke("stopWinLevelDelay", delay);
+    }
+
+    public void stopWinLevelDelay()
+    {
+        ifWinning = false;
     }
 
     public void readSceneLogic(int index)
