@@ -4,37 +4,25 @@ using UnityEngine;
 
 public class GoalScript : MonoBehaviour
 {
-
-    public GameLogic gameLogic;
-    public GameObject player;
-
     private bool won;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!won)
         {
 
-            if (collision.gameObject.name == player.name)
+            if (collision.gameObject == GameLogic.Instance.player)
             {
-                gameLogic.winLevel();
+                OnWin();
 
-                won = true;
             }
 
         }
         
+    }
+
+    protected virtual void OnWin() {
+        GameLogic.Instance.winLevel();
+        won = true;
     }
 }
