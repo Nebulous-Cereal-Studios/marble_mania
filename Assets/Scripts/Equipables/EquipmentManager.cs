@@ -10,7 +10,7 @@ public class EquipmentManager : MonoBehaviour
 
     Dictionary<string, Equipable> equiped_cosmetics = new Dictionary<string, Equipable>();
 
-    void repopulateDict() {
+    void RepopulateDict() {
         equiped_cosmetics.Clear();
         foreach(var cosmetic in Cosmetics) {
             if(equiped_cosmetics.ContainsKey(cosmetic.region_id)) {
@@ -20,9 +20,26 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    private void Start() {
-        repopulateDict();
+    void Start() {
+        RefreshCosmeticsFromData();
 
+        RepopulateDict();
+
+        SpawnAllCosmetics();
+    }
+
+    void RefreshCosmeticsFromData() {
+        Cosmetics.Clear();
+        string[] savedCosmetics = PlayerDataContainer.Instance.data.cosmetics;
+        foreach(string cosmetic in savedCosmetics) {
+            if(string.IsNullOrEmpty(cosmetic)) {
+                continue;
+            }
+            Cosmetics.Add(Resources.Load<Equipable>("Hats/" + cosmetic));
+        }
+    }
+
+    void SpawnAllCosmetics() {
         foreach(var region in regions) {
             Equipable val = null;
             if(!equiped_cosmetics.TryGetValue(region.region_id, out val)) {

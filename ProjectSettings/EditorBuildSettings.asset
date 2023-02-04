@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Sewer Levels/Sewer1/Sewer1.unity
+    guid: eecbd8a2567757a4d88a4c4a916112e3
+  - enabled: 1
+    path: Assets/Scenes/Sewer Levels/Sewer2/Sewer 2.unity
+    guid: acec829d9bf16614bbf543a4fe2e9401
+  - enabled: 1
+    path: Assets/Scenes/Temple1.unity
+    guid: 57fe63723cbb6274c9dd0e510ec500de
   m_configObjects: {}

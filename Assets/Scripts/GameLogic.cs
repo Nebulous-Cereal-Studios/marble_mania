@@ -28,16 +28,22 @@ public class GameLogic : MonoBehaviour
 
     private bool ifWinning;
     private bool won;
+    public int deaths = 0;
 
     public List<LevelInfo> levelInfoList;
 
     // Start is called before the first frame update
     void Start()
     {
+        // if(Instance != null) {
+        //     Destroy(this);
+        //     return;
+        // }
         Instance = this;
         rb = player.gameObject.GetComponent<Rigidbody>();
 
         goalMaterial.color = startColor;
+        //DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -46,6 +52,10 @@ public class GameLogic : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R) && !won)
         {
             KillPlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L)) {
+            loadLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         if (mainCamera.WorldToViewportPoint(player.transform.position).x > 0.75 || mainCamera.WorldToViewportPoint(player.transform.position).y > 0.75 || mainCamera.WorldToViewportPoint(player.transform.position).x > -0.75 || mainCamera.WorldToViewportPoint(player.transform.position).y > -0.75)
@@ -83,6 +93,8 @@ public class GameLogic : MonoBehaviour
     public void KillPlayer()
     {
         player.GetComponent<PlayerController>().killPlayer(start, end);
+        deaths++;
+        PlayerDataContainer.Instance.data.deaths++;
     }
 
     public void winLevel()
@@ -130,6 +142,10 @@ public class GameLogic : MonoBehaviour
 
     public void loadLevel(int index)
     {
+        SceneManager.LoadScene(index);
+    }
 
+    public void loadMenu() {
+        loadLevel(0);
     }
 }
