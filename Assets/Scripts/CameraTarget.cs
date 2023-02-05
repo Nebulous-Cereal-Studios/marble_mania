@@ -10,6 +10,9 @@ public class CameraTarget : MonoBehaviour
 
     private void Start() {
         floor = player.position.y;
+        if(overrideFloor) {
+            floor = GameLogic.Instance.cutOffHeight + 5;
+        }
     }
 
     // Update is called once per frame
@@ -18,9 +21,7 @@ public class CameraTarget : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
         var pos = player.position;
 
-        if(!overrideFloor) {
-            pos.y = Mathf.Clamp(pos.y, floor, float.MaxValue);
-        }
+        pos.y = Mathf.Clamp(pos.y, floor, float.MaxValue);
 
         transform.position = pos;
     }

@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public Material flashingMaterial;
 
     public Vector3 speedcap;
+    float force = 100;
 
     private float flashVal;
 
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveVector = new Vector3(horizontal, 0, vertical);
 
         //cc.Move((moveVector) * speed * Time.deltaTime);
-        rb.AddForce(moveVector, ForceMode.Acceleration);
+        rb.AddForce(moveVector * Time.deltaTime * force, ForceMode.Acceleration);
         // Determines if the speed = run or walk
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -83,9 +84,7 @@ public class PlayerController : MonoBehaviour
         canMove = false;
         rb.isKinematic = true;
         setFlashingMaterial();
-
         Invoke("movePlayerAgain", delay);
-
     }
 
     private void movePlayerAgain()
@@ -126,6 +125,13 @@ public class PlayerController : MonoBehaviour
 
         player.transform.position = start.position;
 
+    }
+
+    public void Jump(float force) {
+        Vector3 vel = rb.velocity;
+        vel.y = 0;
+        rb.velocity = vel;
+        rb.AddForce(new Vector3(0, force, 0), ForceMode.Impulse);
     }
 
 }

@@ -32,8 +32,8 @@ public class GameLogic : MonoBehaviour
 
     public List<LevelInfo> levelInfoList;
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before start
+    void Awake()
     {
         // if(Instance != null) {
         //     Destroy(this);
