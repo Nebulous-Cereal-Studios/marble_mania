@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameLogic : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class GameLogic : MonoBehaviour
     public int deaths = 0;
 
     public List<LevelInfo> levelInfoList;
+    public UnityEvent OnDeath = new UnityEvent();
+    public int nextLevelIndex;
 
     // Awake is called before start
     void Awake()
@@ -92,6 +95,7 @@ public class GameLogic : MonoBehaviour
 
     public void KillPlayer()
     {
+        OnDeath.Invoke();
         player.GetComponent<PlayerController>().killPlayer(start, end);
         deaths++;
         PlayerDataContainer.Instance.data.deaths++;
@@ -121,6 +125,7 @@ public class GameLogic : MonoBehaviour
     public void stopWinLevelDelay()
     {
         ifWinning = false;
+        loadLevel(nextLevelIndex);
     }
 
     public void readSceneLogic(int index)

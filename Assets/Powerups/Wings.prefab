@@ -453,6 +453,8 @@ MonoBehaviour:
   featherDisplay: {fileID: 0}
   floorTime: 0
   reapearTime: 0.5
+  active: 0
+  slowDecentForce: 300
 --- !u!1 &2067586341904418128
 GameObject:
   m_ObjectHideFlags: 0

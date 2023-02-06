@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sewer Levels/Sewer 5/Sewer 5.unity
     guid: 57fe63723cbb6274c9dd0e510ec500de
+  - enabled: 1
+    path: Assets/Scenes/Wings.unity
+    guid: 2627d57607e43be45918b8d526db7ac2
   m_configObjects: {}
