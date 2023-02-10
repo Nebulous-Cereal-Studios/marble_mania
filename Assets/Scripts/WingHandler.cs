@@ -10,7 +10,7 @@ public class WingHandler : MonoBehaviour
     [SerializeField] int jumpsLeft = 3;
     [SerializeField] Vector3 offset = Vector3.zero;
     [SerializeField] float force = 5;
-    [SerializeField] Transform featherDisplay;
+    public Transform featherDisplay;
     [SerializeField] float floorTime = 0f;
     [SerializeField] float reapearTime = 1f;
     [SerializeField] bool active;
@@ -41,7 +41,18 @@ public class WingHandler : MonoBehaviour
         }
     }
 
+    public GameObject GetNextFeather() {
+        for(int i = 0; i < featherDisplay.childCount; i++) {
+            var go = featherDisplay.GetChild(i).gameObject;
+            if(!go.activeSelf) {
+                return go;
+            }
+        }
+        return null;
+    }
+
     void Start() {
+        GameLogic.Instance.wingHandler = this;
         player = GameLogic.Instance.player.GetComponent<FloorCheck>();
         featherDisplay.gameObject.SetActive(true);
         jumpsLeft = jumps;
@@ -105,5 +116,16 @@ public class WingHandler : MonoBehaviour
         Left.SetBool("SlowedDecent", false);
         Right.SetBool("SlowedDecent", false);
         heldSpaceDuration = 0;
+    }
+
+    public void RefillJumps() {
+        jumpsLeft = jumps;
+        foreach(Transform child in featherDisplay) {
+            if(!child.gameObject.activeSelf) {
+                continue;
+            }
+            child.GetComponent<DisapearImage>().StartReapearing();
+        }
+
     }
 }

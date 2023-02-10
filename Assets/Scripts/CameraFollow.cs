@@ -8,7 +8,7 @@ public class CameraFollow : MonoBehaviour
     public GameObject offsetObj;
     public GameObject playerObj;
 
-    public Camera camera;
+    public Camera cam;
 
     public float distance;
 
@@ -30,7 +30,7 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
 
-        if (camera.WorldToViewportPoint(playerObj.transform.position).x > 0.75 || camera.WorldToViewportPoint(playerObj.transform.position).y > 0.75 || camera.WorldToViewportPoint(playerObj.transform.position).x > -0.75 || camera.WorldToViewportPoint(playerObj.transform.position).y > -0.75)
+        if (cam.WorldToViewportPoint(playerObj.transform.position).x > 0.75 || cam.WorldToViewportPoint(playerObj.transform.position).y > 0.75 || cam.WorldToViewportPoint(playerObj.transform.position).x > -0.75 || cam.WorldToViewportPoint(playerObj.transform.position).y > -0.75)
         {
 
             

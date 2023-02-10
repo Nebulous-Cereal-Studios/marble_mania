@@ -27,6 +27,8 @@ public class PlayerDataContainer : MonoBehaviour
         }
         public string[] cosmetics = new string[3];
         public int deaths = 0;
+        public Vector3 verticalDirection = new Vector3(0, 0, -1);
+        public Vector3 horizontalDirection  = new Vector3(1, 0);
 
         public void Save() {
             File.WriteAllText(saveDataPath, JsonUtility.ToJson(this, true));
@@ -38,8 +40,25 @@ public class PlayerDataContainer : MonoBehaviour
                 ds.Save();
                 return ds;
             }
-            return JsonUtility.FromJson<DataStorage>(File.ReadAllText(saveDataPath));
+            return Validate(JsonUtility.FromJson<DataStorage>(File.ReadAllText(saveDataPath)));
         } 
+
+        public static DataStorage Validate(DataStorage ds) {
+            if(ds.cosmetics.Length > 3) {
+                ds.cosmetics = new string[3];
+            }
+            if(ds.deaths < 0) {
+                ds.deaths = 0;
+            }
+            if(Mathf.Abs(ds.verticalDirection.x) + Mathf.Abs(ds.verticalDirection.z) != 1 || ds.verticalDirection.y != 0) {
+                ds.verticalDirection = new Vector3(0, 0, -1);
+            }
+            if(Mathf.Abs(ds.horizontalDirection.x) + Mathf.Abs(ds.horizontalDirection.z) != 1 || ds.horizontalDirection.y != 0) {
+                ds.horizontalDirection = new Vector3(1, 0);
+            }
+
+            return ds;
+        }
     }
 
     private void OnApplicationQuit() {

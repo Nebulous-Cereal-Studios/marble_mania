@@ -34,6 +34,7 @@ public class GameLogic : MonoBehaviour
     public List<LevelInfo> levelInfoList;
     public UnityEvent OnDeath = new UnityEvent();
     public int nextLevelIndex;
+    public WingHandler wingHandler;
 
     // Awake is called before start
     void Awake()
@@ -152,5 +153,9 @@ public class GameLogic : MonoBehaviour
 
     public void loadMenu() {
         loadLevel(0);
+    }
+
+    public void RegisterForReActivationOnDeath(GameObject go) {
+        this.OnDeath.AddListener(() => {go.SetActive(true);});
     }
 }

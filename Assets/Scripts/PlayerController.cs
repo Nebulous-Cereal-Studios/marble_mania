@@ -38,8 +38,14 @@ public class PlayerController : MonoBehaviour
 
     private float flashVal;
 
+    [SerializeField] Vector3 verticalDirection;
+    [SerializeField] Vector3 horizontalDirection;
+
     private void Start()
     {
+        verticalDirection = PlayerDataContainer.Instance.data.verticalDirection.normalized;
+        horizontalDirection = PlayerDataContainer.Instance.data.horizontalDirection.normalized;
+
         speed = walk;
         flashVal = 0;
         canMove = true;
@@ -50,7 +56,7 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 moveVector = new Vector3(horizontal, 0, vertical);
+        Vector3 moveVector = (horizontal * horizontalDirection) + (vertical * verticalDirection);
 
         //cc.Move((moveVector) * speed * Time.deltaTime);
         rb.AddForce(moveVector * Time.deltaTime * force, ForceMode.Acceleration);
