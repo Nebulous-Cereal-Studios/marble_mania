@@ -27,7 +27,7 @@ public class PlayerDataContainer : MonoBehaviour
         }
         public string[] cosmetics = new string[3];
         public int deaths = 0;
-        public Vector3 verticalDirection = new Vector3(0, 0, -1);
+        public Vector3 verticalDirection = new Vector3(0, 0, 1);
         public Vector3 horizontalDirection  = new Vector3(1, 0);
 
         public void Save() {
@@ -51,7 +51,7 @@ public class PlayerDataContainer : MonoBehaviour
                 ds.deaths = 0;
             }
             if(Mathf.Abs(ds.verticalDirection.x) + Mathf.Abs(ds.verticalDirection.z) != 1 || ds.verticalDirection.y != 0) {
-                ds.verticalDirection = new Vector3(0, 0, -1);
+                ds.verticalDirection = new Vector3(0, 0, 1);
             }
             if(Mathf.Abs(ds.horizontalDirection.x) + Mathf.Abs(ds.horizontalDirection.z) != 1 || ds.horizontalDirection.y != 0) {
                 ds.horizontalDirection = new Vector3(1, 0);
