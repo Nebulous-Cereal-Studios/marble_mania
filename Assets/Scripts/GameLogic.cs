@@ -36,6 +36,8 @@ public class GameLogic : MonoBehaviour
     public int nextLevelIndex;
     public WingHandler wingHandler;
 
+    bool displayDebug = false;
+
     // Awake is called before start
     void Awake()
     {
@@ -157,5 +159,12 @@ public class GameLogic : MonoBehaviour
 
     public void RegisterForReActivationOnDeath(GameObject go) {
         this.OnDeath.AddListener(() => {go.SetActive(true);});
+    }
+
+    private void OnDrawGizmos() {
+        if(!displayDebug) {
+            return;
+        }
+        Gizmos.DrawCube(new Vector3(0,cutOffHeight,0), new Vector3(900, 2, 900));
     }
 }
