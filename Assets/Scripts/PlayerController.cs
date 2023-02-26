@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private float Sensitivity;
+    public FloorCheck floorCheck;
 
     private float speed;
     [SerializeField] private float walk;
@@ -35,9 +36,10 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 speedcap;
     float force = 100;
+    float startForce = 300;
+    float breakForce = 250;
 
     private float flashVal;
-
     [SerializeField] Vector3 verticalDirection;
     [SerializeField] Vector3 horizontalDirection;
 
@@ -49,33 +51,44 @@ public class PlayerController : MonoBehaviour
         speed = walk;
         flashVal = 0;
         canMove = true;
+        floorCheck = GetComponent<FloorCheck>();
     }
     private void Update()
     {
-
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         Vector3 moveVector = (horizontal * horizontalDirection) + (vertical * verticalDirection);
+        
+        isMoving = moveVector.magnitude > 0f;
 
-        //cc.Move((moveVector) * speed * Time.deltaTime);
-        rb.AddForce(moveVector * Time.deltaTime * force, ForceMode.Acceleration);
-        // Determines if the speed = run or walk
+        if (isMoving)
+        {
+            rb.AddForce(moveVector * Time.deltaTime * force, ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.AddForce(moveVector.normalized * startForce * Time.deltaTime, ForceMode.Acceleration);
+            Vector3 vel = rb.velocity;
+            vel.y = 0;
+            if(Mathf.Abs(rb.velocity.magnitude) > 0.5 && floorCheck.isOnFloor()) {
+                Vector3 brakingForceVector = -rb.velocity.normalized * breakForce;
+                rb.AddForce(brakingForceVector * Time.deltaTime, ForceMode.Acceleration);
+            }
+        }
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = run;
             isRunning = true;
         }
 
-        //Digusting coded speedcap; I am not proud of this code
-        if (rb.velocity.x > speedcap.x) { Debug.Log("REACING X SPEEDCAP"); rb.velocity = new Vector3(speedcap.x, rb.velocity.y, rb.velocity.z); }
-        if (rb.velocity.y > speedcap.y) { Debug.Log("REACING Y SPEEDCAP"); rb.velocity = new Vector3(rb.velocity.x, speedcap.y, rb.velocity.z); }
-        if (rb.velocity.z > speedcap.z) { Debug.Log("REACING Z SPEEDCAP");  rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speedcap.z); }
-
-        // Detects if the player is moving.
-        // Useful if you want footstep sounds and or other features in your game.
-
-        //rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime / slowdownSpeed);
+        // Apply speedcap
+        Vector3 clampedVelocity = rb.velocity;
+        if (clampedVelocity.magnitude > speedcap.magnitude) {
+            clampedVelocity = clampedVelocity.normalized * speedcap.magnitude;
+        }
+        rb.velocity = clampedVelocity;
 
         if (!canMove)
         {

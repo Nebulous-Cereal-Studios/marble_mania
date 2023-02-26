@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FeatherHandler : MonoBehaviour
 {
+    [SerializeField] Vector3 localOffset = Vector3.zero;
+    [SerializeField] Camera cam;
     [SerializeField] bool startDisabled = true;
     // Start is called before the first frame update
     void Start()
@@ -15,5 +17,11 @@ public class FeatherHandler : MonoBehaviour
                 }
             });
         }
+    }
+
+
+    void Update() {
+        // transform.localPosition = cam.WorldToScreenPoint(GameLogic.Instance.player.transform.position);
+        // transform.localPosition += localOffset;
     }
 }
