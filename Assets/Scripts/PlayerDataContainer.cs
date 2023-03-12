@@ -9,7 +9,7 @@ public class PlayerDataContainer : MonoBehaviour
 
     private void Awake() {
         if(Instance != null) {
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         Instance = this;
@@ -29,6 +29,7 @@ public class PlayerDataContainer : MonoBehaviour
         public int deaths = 0;
         public Vector3 verticalDirection = new Vector3(0, 0, 1);
         public Vector3 horizontalDirection  = new Vector3(1, 0);
+        public int currency;
 
         public void Save() {
             File.WriteAllText(saveDataPath, JsonUtility.ToJson(this, true));
